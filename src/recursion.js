@@ -60,12 +60,38 @@ var arraySum = function(array) {
 
 // 4. Check if a number is even.
 var isEven = function(n) {
+    if (n === 0) {
+        return true;
+    };
+    if (isEven(Math.abs(n - 1))) {
+        return false;
+    } else {
+        return true;
+    };
 };
 
 // 5. Sum all integers below a given integer.
 // sumBelow(10); // 45
 // sumBelow(7); // 21
 var sumBelow = function(n) {
+  
+    var result = 0; 
+      if (n === -1 || n === 0 || n === 1 ){
+        return 0;
+      }
+      else if(n === 2) {
+        return 1;
+      } 
+      else if (n === -2) {
+          return -1;
+      } else {
+          if (0 < n){
+            result = result + sumBelow(n - 1) + (n - 1) ;
+          } else {
+            result = result + sumBelow(n + 1) + (n + 1) ;   
+          }
+      }  
+    return result; 
 };
 
 // 6. Get the integers within a range (x, y).
