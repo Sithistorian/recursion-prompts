@@ -207,11 +207,45 @@ var palindrome = function(string) {
 // modulo(17,5) // 2
 // modulo(22,6) // 4
 var modulo = function(x, y) {
-};
+  
+  };
 
 // 12. Write a function that multiplies two numbers without using the * operator or
 // Math methods.
 var multiply = function(x, y) {
+  
+    if (x === 0 || y === 0) {
+        return 0;
+    } else if (x === 1) {
+        return y;
+    } else if ( y === 1) {
+        return x; 
+    } else if (x === 2) {
+        return y + y; 
+    } else if (y === 2) {
+        return x + x; 
+    } else if (x === -1) {
+        return -y;
+    } else if (y === -1) {
+        return -x;
+    } else if (x === -2) {
+        return -y - y; 
+    } else if (y === -2) {
+        return -x - x; 
+    } else {
+        if (0 < x && 0 < y) {
+        return multiply(x, y - 1) + x; 
+        } else if (x < 0 && y < 0) {
+          return multiply(x, y + 1) - x;   
+        } else { 
+           
+           if (0 < x && y < 0) {
+                return multiply(x, y + 1) - x;
+            } else {
+              return multiply(x, y - 1) + x;
+            }
+        }  
+    }
 };
 
 // 13. Write a function that divides two numbers without using the / operator or
