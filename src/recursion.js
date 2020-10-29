@@ -355,12 +355,85 @@ var countKeysInObj = function(obj, key) {
 // countValuesInObj(obj, 'r') // 2
 // countValuesInObj(obj, 'e') // 1
 var countValuesInObj = function(obj, value) {
+    var result = 0; 
+
+    if (JSON.stringify(obj) === '{}') {
+        return result; 
+    }; 
+
+    for (var item in obj) {
+      if (obj[item] === value) {
+        result++;
+      }
+    }; 
+
+    var isFlat = true;
+
+        for (var item in obj) { 
+            if (typeof(obj[item]) === 'object') {
+                isFlat = false; 
+                break; 
+            }
+        };
+
+        if (isFlat) {
+            return result; 
+        } else {
+            for (var item in obj) { 
+              if (typeof(obj[item]) === 'object') {
+                 if (obj[item] === value) {
+                   result = result + countValuesInObj(obj[item], value);
+            
+                 } else {
+                   result = result + countValuesInObj(obj[item], value); 
+                 }
+            }
+        }
+      }
+  return result; 
 };
 
 // 24. Find all keys in an object (and nested objects) by a provided name and rename
 // them to a provided new name while preserving the value stored at that key.
 var replaceKeysInObj = function(obj, oldKey, newKey) {
+
+    if (JSON.stringify(obj) === '{}') {
+        return {}; 
+    }; 
+
+    for (var item in obj) {
+      if (item === oldKey) {
+        obj[newKey] = obj[item]; 
+        delete obj[item];
+      } 
+    }; 
+
+    var isFlat = true;
+
+        for (var item in obj) { 
+            if (typeof(obj[item]) === 'object') {
+                isFlat = false; 
+                break; 
+            }
+        };
+
+        if (isFlat) {
+            return obj;  
+        } else {
+            for (var item in obj) { 
+              if (typeof(obj[item]) === 'object') {
+                 if (item === oldKey) {
+                   obj[newKey] = replaceKeysInObj(obj[item], oldKey, newKey);
+                   delete obj[item]; 
+                 } else {
+                    obj[item] = replaceKeysInObj(obj[item], oldKey, newKey);
+                 }
+            }
+        }
+      }
+    return obj;   
 };
+
 
 // 25. Get the first n Fibonacci numbers. In the Fibonacci sequence, each subsequent
 // number is the sum of the previous two.
