@@ -251,6 +251,9 @@ var multiply = function(x, y) {
 // 13. Write a function that divides two numbers without using the / operator or
 // Math methods to arrive at an approximate quotient (ignore decimal endings).
 var divide = function(x, y) {
+
+  
+
 };
 
 // 14. Find the greatest common divisor (gcd) of two positive numbers. The GCD of two
@@ -306,7 +309,45 @@ var rMap = function(array, callback) {
 // var obj = {'e':{'x':'y'},'t':{'r':{'e':'r'},'p':{'y':'r'}},'y':'e'};
 // countKeysInObj(obj, 'r') // 1
 // countKeysInObj(obj, 'e') // 2
+
 var countKeysInObj = function(obj, key) {
+
+    var result = 0; 
+
+    if (JSON.stringify(obj) === '{}') {
+        return result; 
+    }; 
+
+    for (var item in obj) {
+      if (item === key) {
+        result++;
+      }
+    }; 
+
+    var isFlat = true;
+
+        for (var item in obj) { 
+            if (typeof(obj[item]) === 'object') {
+                isFlat = false; 
+                break; 
+            }
+        };
+
+        if (isFlat) {
+            return result; 
+        } else {
+            for (var item in obj) { 
+              if (typeof(obj[item]) === 'object') {
+                 if (item === key) {
+                   result = result + countKeysInObj(obj[item], key);
+            
+                 } else {
+                   result = result + countKeysInObj(obj[item], key); 
+                 }
+            }
+        }
+      }
+  return result; 
 };
 
 // 23. Write a function that counts the number of times a value occurs in an object.
